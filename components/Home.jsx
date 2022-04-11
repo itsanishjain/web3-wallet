@@ -39,6 +39,7 @@ export default function Home() {
 
 
   const getData = async () => {
+    console.log({ library })
     const contract = new Contract(NFT_CONTRACT_ADDRESS, NFT_CONTRACT_ABI, library);
     const response = await contract.name();
     console.log("RESPONSE:::::", response)

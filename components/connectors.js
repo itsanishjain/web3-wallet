@@ -23,7 +23,7 @@ const walletconnect = new WalletConnectConnector({
   // rpcUrl: `https://rinkeby.infura.io/v3/${infuraId}`,
   supportedChainIds: ALL_SUPPORTED_CHAIN_IDS,
   rpc: INFURA_NETWORK_URLS,
-  bridge: "https://bridge.walletconnect.org",
+  // bridge: "https://bridge.walletconnect.org",
   qrcode: true
 });
 
