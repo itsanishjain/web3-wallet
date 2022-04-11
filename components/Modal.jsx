@@ -33,7 +33,7 @@ import {
           />
           <ModalBody paddingBottom="1.5rem">
             <VStack>
-              {/* <Button
+              <Button
                 variant="outline"
                 onClick={() => {
                   activate(connectors.walletConnect);
@@ -41,7 +41,7 @@ import {
                   closeModal();
                 }}
                 w="100%"
-              > */}
+              >
                 <HStack w="100%" justifyContent="center">
                   <Image
                     src="/wc.png"
