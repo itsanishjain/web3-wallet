@@ -6,14 +6,13 @@ const injected = new InjectedConnector({
 });
 
 
-const infuraId = "dc2e719674974f18912598de53fb7e74"
 
 const ALL_SUPPORTED_CHAIN_IDS = [1, 2, 4]
 
 const INFURA_NETWORK_URLS = {
-  1: `https://mainnet.infura.io/v3/${infuraId}`,
-  2: `https://ropsten.infura.io/v3/${infuraId}`,
-  4: `https://rinkeby.infura.io/v3/${infuraId}`
+  1: `https://mainnet.infura.io/v3/${NEXT_PUBLIC_INFURA_KEY}`,
+  2: `https://ropsten.infura.io/v3/${NEXT_PUBLIC_INFURA_KEY}`,
+  4: `https://rinkeby.infura.io/v3/${NEXT_PUBLIC_INFURA_KEY}`
 }
 
 // const ALL_SUPPORTED_CHAIN_IDS = {
