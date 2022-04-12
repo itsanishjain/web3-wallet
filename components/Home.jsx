@@ -58,7 +58,7 @@ export default function Home() {
       console.log({ library })
       console.log({ 'Keys': Object.keys(library) })
 
-      library.provider.http.connection.url = "https://rinkeby.infura.io/v3/dc2e719674974f18912598de53fb7e74"
+      library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`
 
       console.log({ "AFTER LIB UPDATE": library })
     }
