@@ -161,6 +161,16 @@ export default function Home() {
                   <option value="1666600000">Harmony</option>
                   <option value="42220">Celo</option>
                 </Select>
+
+                <pre>
+                  {
+                    JSON.stringify(library, null, 2)
+                  }
+                </pre>
+
+
+
+
               </VStack>
             </Box>
           </HStack>
