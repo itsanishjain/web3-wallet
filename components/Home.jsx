@@ -108,7 +108,7 @@ export default function Home() {
   const disconnect = () => {
     refreshState();
     deactivate();
-    location.reload();
+    // location.reload();
 
   };
 
