@@ -37,7 +37,7 @@ export default function Home() {
   const [signedMessage, setSignedMessage] = useState("");
   const [verified, setVerified] = useState();
 
-  const [name,setName] = useState()
+  const [name, setName] = useState()
 
 
   const getData = async () => {
@@ -50,7 +50,13 @@ export default function Home() {
     // Change the Libray-> URL
 
 
-    library.provider.http.connection.url = `url: "https://rinkeby.infura.io/v3/dc2e719674974f18912598de53fb7e74"`
+    if (chainId != 1) {
+      library.provider.http.connection.url = "https://rinkeby.infura.io/v3/dc2e719674974f18912598de53fb7e74"
+
+      console.log({ "AFTER LIB UPDATE": library })
+    }
+
+
 
 
     const contract = new Contract(NFT_CONTRACT_ADDRESS, NFT_CONTRACT_ABI, library);
