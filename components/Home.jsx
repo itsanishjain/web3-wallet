@@ -53,7 +53,11 @@ export default function Home() {
 
 
     if (chainId != 1) {
+      console.log("###############################################")
       console.log("INSIDE CHAIN ID iS>>>", chainId)
+      console.log({library})
+      console.log({ 'Keys': Object.keys(library) })
+
       library.provider.http.connection.url = "https://rinkeby.infura.io/v3/dc2e719674974f18912598de53fb7e74"
 
       console.log({ "AFTER LIB UPDATE": library })
