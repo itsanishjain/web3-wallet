@@ -162,11 +162,13 @@ export default function Home() {
                   <option value="42220">Celo</option>
                 </Select>
 
-                <pre>
-                  {
-                    JSON.stringify(library, null, 2)
-                  }
-                </pre>
+                {
+                  library && <pre>
+                    {
+                      JSON.stringify(library, null, 2)
+                    }
+                  </pre>
+                }
 
 
 
