@@ -49,8 +49,11 @@ export default function Home() {
     // TODO: fetch network
     // Change the Libray-> URL
 
+    console.log({ chainId })
+
 
     if (chainId != 1) {
+      console.log("INSIDE CHAIN ID iS>>>", chainId)
       library.provider.http.connection.url = "https://rinkeby.infura.io/v3/dc2e719674974f18912598de53fb7e74"
 
       console.log({ "AFTER LIB UPDATE": library })
