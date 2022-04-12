@@ -40,6 +40,9 @@ export default function Home() {
 
   const getData = async () => {
     console.log({ library })
+    console.log({ 'Keys': Object.keys(library) })
+    console.log({ 'Values': Object.values(library) })
+
     const contract = new Contract(NFT_CONTRACT_ADDRESS, NFT_CONTRACT_ABI, library);
     const response = await contract.name();
     console.log("RESPONSE:::::", response)
@@ -161,17 +164,6 @@ export default function Home() {
                   <option value="1666600000">Harmony</option>
                   <option value="42220">Celo</option>
                 </Select>
-
-                {
-                  library && <pre>
-                    {
-                      JSON.stringify(library, null, 2)
-                    }
-                  </pre>
-                }
-
-
-
 
               </VStack>
             </Box>
