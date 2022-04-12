@@ -37,6 +37,8 @@ export default function Home() {
   const [signedMessage, setSignedMessage] = useState("");
   const [verified, setVerified] = useState();
 
+  const [name,setName] = useState()
+
 
   const getData = async () => {
     console.log({ library })
@@ -46,6 +48,7 @@ export default function Home() {
     const contract = new Contract(NFT_CONTRACT_ADDRESS, NFT_CONTRACT_ABI, library);
     const response = await contract.name();
     console.log("RESPONSE:::::", response)
+    setName(response);
   }
 
   const handleNetwork = (e) => {
@@ -164,6 +167,10 @@ export default function Home() {
                   <option value="1666600000">Harmony</option>
                   <option value="42220">Celo</option>
                 </Select>
+
+                {
+                  name && <Text>{name}</Text>
+                }
 
               </VStack>
             </Box>
