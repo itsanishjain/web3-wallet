@@ -10,7 +10,7 @@ export default function Home() {
 
 
   const card = {
-    background: "grey",
+    background: "#999",
     maxWidth: "600px",
     margin: "0 auto",
     borderRadius: "8px",
@@ -19,7 +19,7 @@ export default function Home() {
   }
 
   const walletButton = {
-    border: "1px solid lightgreen",
+    border: "1px solid black",
     padding: "10px",
     borderRadius: "4px",
     maxWidth: "fit-content",
@@ -30,6 +30,7 @@ export default function Home() {
 
   const { library, chainId, account, activate, deactivate, active } = useWeb3React();
   const [name, setName] = useState()
+  const [loading, setLoading] = useState(false)
 
 
 
@@ -42,9 +43,11 @@ export default function Home() {
   const disconnect = () => {
     refreshState();
     deactivate();
+    setName()
   };
 
   const getData = async () => {
+    setLoading(true)
     if (chainId == 4 && library.connection.url != 'metamask') {
       library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`
     }
@@ -53,6 +56,7 @@ export default function Home() {
     const response = await contract.name();
     console.log("RESPONSE:::::", response)
     setName(response);
+    setLoading(false)
   }
 
 
@@ -80,9 +84,7 @@ export default function Home() {
 
     if (!isCancelled) {
       setProvider("walletConnect");
-      if (library) {
-        toast.success("Connected Successfully");
-      };
+      window.alert("Connected Successfully");
     }
   }
 
@@ -98,13 +100,19 @@ export default function Home() {
       {account &&
         <div>
           <h5>Account is {truncateAddress(account)}</h5>
-          <p onClick={getData} style={walletButton}>Get Data</p>
+          <p onClick={getData} style={walletButton}>{!loading ? "Get Data" : "Getting....."}</p>
           {name && <p>{name}</p>}
           <p onClick={disconnect} style={walletButton}>Disconnect</p>
         </div>
       }
-      <p onClick={connectMetaMask} style={walletButton}>Metamask</p>
-      <p onClick={connectWalletConnect} style={walletButton}>WalletConnect</p>
+      {
+        !account && (
+          <>
+            <p onClick={connectMetaMask} style={walletButton}>Metamask</p>
+            <p onClick={connectWalletConnect} style={walletButton}>WalletConnect</p>
+          </>
+        )
+      }
     </div>
 
   );
