@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { connectors } from "./connectors";
 import { toHex, truncateAddress } from "./utils";
 
-import { Contract } from "ethers";
+import { Contract, providers } from "ethers";
 import { NFT_CONTRACT_ADDRESS, NFT_CONTRACT_ABI } from '../constants'
 
 export default function Home() {
@@ -30,6 +30,7 @@ export default function Home() {
 
   const { library, chainId, account, activate, deactivate, active } = useWeb3React();
   const [name, setName] = useState()
+  const [ENS, setENS] = useState()
   const [loading, setLoading] = useState(false)
 
 
@@ -59,7 +60,13 @@ export default function Home() {
     setLoading(false)
   }
 
-
+  const lookupENS = async () => {
+    const provider = await library.provider;
+    const web3Provider = new providers.Web3Provider(provider)
+    console.log({ account })
+    const _ens = await web3Provider.lookupAddress(account)
+    if (_ens) setENS(_ens)
+  }
 
 
   const connectMetaMask = async () => {
@@ -94,6 +101,15 @@ export default function Home() {
     if (provider) activate(connectors[provider]);
   }, [activate]);
 
+  useEffect(() => {
+    if (!account) return;
+    if (!library) return;
+    lookupENS().then(() => {
+      console.log("DONE")
+    }).catch(err => console.log('err', err))
+
+  }, [account, library])
+
   return (
 
     <div style={card}>
@@ -102,6 +118,7 @@ export default function Home() {
           <h5>Account is {truncateAddress(account)}</h5>
           <p onClick={getData} style={walletButton}>{!loading ? "Get Data" : "Getting....."}</p>
           {name && <p>{name}</p>}
+          {ENS && <p>  {ENS} </p>}
           <p onClick={disconnect} style={walletButton}>Disconnect</p>
         </div>
       }
