@@ -1,29 +1,15 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
-import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
+import { UAuthConnector } from "@uauth/web3-react";
 
 const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5]
+  supportedChainIds: [4, 37, 80001],
 });
 
-
-const ALL_SUPPORTED_CHAIN_IDS = [1, 3, 4, 5]
-
-const INFURA_NETWORK_URLS = {
-  1: `https://mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
-  3: `https://ropsten.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
-  4: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
-  5: `https://goeril.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
-}
-
-
-const walletconnect = new WalletConnectConnector({
-  supportedChainIds: ALL_SUPPORTED_CHAIN_IDS,
-  rpc: INFURA_NETWORK_URLS,
-  bridge: "https://bridge.walletconnect.org",
-  qrcode: true
+export const uauth = new UAuthConnector({
+  clientID: "ADD_YOUR_CLIENT_ID",
+  redirectUri: "http://127.0.0.1:3000",
+  scope: "openid wallet",
+  connectors: { injected },
 });
 
-export const connectors = {
-  injected: injected,
-  walletConnect: walletconnect,
-};
+export const connectors = { injected, uauth };
