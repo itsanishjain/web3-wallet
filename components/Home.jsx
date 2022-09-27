@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { toHex, truncateAddress } from "./utils";
+import { useState } from "react";
+import { truncateAddress } from "./utils";
 
 import {
   useAccount,
   useConnect,
-  useNetwork,
-  useSwitchNetwork,
   useDisconnect,
+  useSigner,
+  useContract,
 } from "wagmi";
 
 import { NFT_CONTRACT_ADDRESS, NFT_CONTRACT_ABI } from "../constants";
@@ -31,24 +31,23 @@ const walletButton = {
 };
 
 export default function Home() {
-  const { isConnected, connector, address } = useAccount();
+  const { isConnected, address } = useAccount();
+  const { data: signer } = useSigner();
 
+  const { disconnect } = useDisconnect();
   const { connect, connectors } = useConnect();
 
   const [loading, setLoading] = useState(false);
-
   const [name, setName] = useState("");
 
-  const { disconnect } = useDisconnect();
+  const contract = useContract({
+    addressOrName: NFT_CONTRACT_ADDRESS,
+    contractInterface: NFT_CONTRACT_ABI,
+    signerOrProvider: signer,
+  });
 
   const getData = async () => {
     setLoading(true);
-
-    const contract = new Contract(
-      NFT_CONTRACT_ADDRESS,
-      NFT_CONTRACT_ABI,
-      library
-    );
     const response = await contract.name();
     setName(response);
     setLoading(false);
@@ -58,9 +57,18 @@ export default function Home() {
     return (
       <div style={card}>
         <div>Connected with {truncateAddress(address)}</div>
-        <button style={walletButton} onClick={() => disconnect()}>
-          Disconnect
+
+        <button style={walletButton} onClick={getData}>
+          {loading ? "loading...." : "Get data"}
         </button>
+
+        {name && <p>{name}</p>}
+
+        <div>
+          <button style={walletButton} onClick={() => disconnect()}>
+            Disconnect
+          </button>
+        </div>
       </div>
     );
 
