@@ -1,17 +1,7 @@
-import { ConnectButton, useAccount } from "@web3modal/react";
-import { ClientCtrl } from "@web3modal/core";
+import EnsSection from "../components/Ens";
+import Home from "../components/Home";
 
 export default function App() {
-  const { connected } = useAccount();
-
-  return connected ? (
-    <>
-      <button onClick={ClientCtrl.ethereum().disconnect}>Disconnect</button>
-      <div>
-        <buttom>Get Data</buttom>
-      </div>
-    </>
-  ) : (
-    <ConnectButton />
-  );
+  return <Home />;
+  // return <EnsSection />;
 }
