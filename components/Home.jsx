@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { useWeb3React } from "@web3-react/core";
-import { connectors } from "./connectors";
-import { truncateAddress } from "./utils";
 
 import { Contract } from "ethers";
 import { NFT_CONTRACT_ADDRESS, NFT_CONTRACT_ABI } from "../constants";
@@ -26,21 +23,8 @@ export default function Home() {
     cursor: "pointer",
   };
 
-  const { library, chainId, account, activate, deactivate } = useWeb3React();
-
   const [name, setName] = useState();
   const [loading, setLoading] = useState(false);
-
-  // Unset MM/walletConnect provider in localStorage
-  const refreshState = () => {
-    window.localStorage.setItem("provider", undefined);
-  };
-
-  const disconnect = () => {
-    refreshState();
-    deactivate();
-    setName();
-  };
 
   const getData = async () => {
     setLoading(true);
@@ -58,31 +42,11 @@ export default function Home() {
     setLoading(false);
   };
 
-  const connectWallet = async (walletName) => {
+  const connectWallet = async () => {
     setLoading(true);
-    let isCancelled = false;
 
-    await activate(connectors[walletName], (err) => {
-      console.log(err);
-
-      alert("Connection Rejected");
-      isCancelled = true;
-    });
-    if (isCancelled) return;
-
-    localStorage.setItem("provider", walletName);
-    alert("Connected Successfully");
     setLoading(false);
   };
-
-  useEffect(() => {
-    const provider = window.localStorage.getItem("provider");
-    console.log({ provider });
-    if (provider) activate(connectors[provider]);
-  }, [activate]);
-
-  console.log(account);
-  console.log({ chainId });
 
   return (
     <div style={card}>
