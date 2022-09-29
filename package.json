@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@thirdweb-dev/react": "^3.1.2",
+    "@thirdweb-dev/sdk": "^3.1.2",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.13",
-    "ethers": "^5.6.2",
+    "ethers": "^5.7.1",
     "next": "12.1.4",
     "react": "18.0.0",
     "react-dom": "18.0.0"
