@@ -19,7 +19,7 @@ const client = createClient({
   connectors: [
     new MetaMaskConnector(),
     new WalletConnectConnector({ options: { qrcode: true } }),
-    new CoinbaseWalletConnector({ options: { appName: "VIP_LOL_PASS" } }),
+    new CoinbaseWalletConnector({ options: { appName: "WagmiWallet" } }),
   ],
   autoConnect: true,
   provider,
