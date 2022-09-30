@@ -3,6 +3,18 @@ import { useWeb3React } from "@web3-react/core";
 import { connectors } from "./connectors";
 import { toHex, truncateAddress } from "./utils";
 
+import Web3 from "web3";
+import { Magic } from "magic-sdk";
+import { ConnectExtension } from "@magic-ext/connect";
+
+
+
+const magic = new Magic(process.env.NEXT_PUBLIC_MC_KEY, {
+  extensions: [new ConnectExtension()],
+  network: "rinkeby",
+});
+const web3 = new Web3(magic.rpcProvider);
+
 import { ConnectWallet, useSigner, useAccount } from "@thirdweb-dev/react";
 
 import { Contract, providers } from "ethers";
@@ -64,7 +76,7 @@ export default function Home() {
 
   return (
     <div>
-      <ConnectWallet accentColor="#f213a4" colorMode="dark" />
+      <button onClick={() => magic.connect.supportedSdkMethods()}></button>
     </div>
   );
 }
